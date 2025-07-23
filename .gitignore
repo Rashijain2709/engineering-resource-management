@@ -1,0 +1,20 @@
+# Ignore environment variable files
+.env
+client/.env
+server/.env
+
+# Ignore node_modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# IDE settings
+.vscode/
+.idea/
+.cursor/
+.cursorrules
+
+# Others
+package-lock.json
+client/package-lock.json
+server/package-lock.json
