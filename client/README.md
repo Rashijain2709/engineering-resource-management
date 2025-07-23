@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+# Frontend - Engineering Resource Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This folder contains the frontend part of the Engineering Resource Management System project. It is a React application built with TypeScript. The UI is styled using Tailwind CSS and ShadCN UI components. Zustand is used for authentication state, and routing is managed using React Router DOM.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Login page for both managers and engineers
+- Role-based dashboard views
+- Manager can view all engineers, their capacity, and assign them to projects
+- Engineer can view their project assignments
+- Project listing and assignment listing pages
+- Profile page to view user info
+- Skill tags and progress bars to show capacity visually
+- Sidebar navigation layout for all pages
+- Form validation using React Hook Form
+- Toast notifications for user actions and errors
+- Axios instance with JWT token support
 
-### `npm start`
+## Folder Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+src/
+├── components/
+│ ├── ui/           # Basic UI elements like Input, Button, Label
+│ └── shared/       # Reusable visuals like CapacityBar, SkillTags
+├── hooks/          # Custom hooks
+├── lib/            # Axios config with token handling
+├── pages/          # Login, Dashboards, Assignments, Projects, Profile
+├── store/          # Zustand auth store
+├── types/          # Global TypeScript interfaces
+├── App.tsx         # Routes and protected route logic
+└── main.tsx        # Entry point with Toast setup
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### 1. Navigate to this directory
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+cd client
 
-### `npm run build`
+### 2. Install dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Start the development server
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run dev
