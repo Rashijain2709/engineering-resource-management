@@ -16,8 +16,11 @@ This folder contains the frontend part of the Engineering Resource Management Sy
 - Toast notifications for user actions and errors
 - Axios instance with JWT token support
 
+---
+
 ## Folder Structure
 
+```
 src/
 ├── components/
 │ ├── ui/           # Basic UI elements like Input, Button, Label
@@ -30,17 +33,23 @@ src/
 ├── App.tsx         # Routes and protected route logic
 └── main.tsx        # Entry point with Toast setup
 
+```
+
+---
+
 ## Getting Started
 
 ### 1. Navigate to this directory
 
 ```bash
 cd client
+```
 
 ### 2. Install dependencies
 
 ```bash
 npm install
+```
 
 ### 3. Start the development server
 
