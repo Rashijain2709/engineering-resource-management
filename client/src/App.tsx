@@ -10,25 +10,41 @@ import { useAuth } from './store/auth';
 const App = () => {
   const { token, user } = useAuth();
 
-  if (!token) {
-    return (
-      <Router>
-        <Routes>
-          <Route path="*" element={<Login />} />
-        </Routes>
-      </Router>
-    );
-  }
-
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to={user?.role === 'manager' ? '/manager' : '/engineer'} />} />
-        <Route path="/manager" element={<ManagerDashboard />} />
-        <Route path="/engineer" element={<EngineerDashboard />} />
-        <Route path="/assignments" element={<Assignments />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/profile" element={<Profile />} />
+        {!token ? (
+          <>
+            {/* Public route: Login */}
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </>
+        ) : (
+          <>
+            {/* Redirect root to role-based dashboard */}
+            <Route
+              path="/"
+              element={
+                <Navigate
+                  to={user?.role === 'manager' ? '/manager' : '/engineer'}
+                  replace
+                />
+              }
+            />
+            {/* Protected role-based dashboards */}
+            <Route path="/manager" element={<ManagerDashboard />} />
+            <Route path="/engineer" element={<EngineerDashboard />} />
+
+            {/* Shared protected routes */}
+            <Route path="/assignments" element={<Assignments />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/profile" element={<Profile />} />
+
+            {/* Redirect unknown routes to root */}
+            <Route path="*" element={<Navigate to="/" />} />
+          </>
+        )}
       </Routes>
     </Router>
   );

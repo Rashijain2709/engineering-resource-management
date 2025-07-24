@@ -1,24 +1,36 @@
 import { useFetch } from '../../hooks/useFetch';
+import { Assignment } from '../../types';
+import Layout from '../../components/shared/Layout';
 
 const Assignments = () => {
-    const { data: assignments, loading } = useFetch<any[]>('/assignments');
-
-    if (loading) return <p>Loading...</p>;
+    const { data: assignments, loading, error } = useFetch<Assignment[]>('/assignments');
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-semibold mb-4">All Assignments</h1>
-            {assignments?.map((a) => (
-                <div key={a._id} className="border mb-4 p-4 rounded shadow">
-                    <h2 className="font-semibold">{a.role}</h2>
-                    <p>Engineer: {a.engineerId}</p>
-                    <p>Project: {a.projectId}</p>
-                    <p>From: {new Date(a.startDate).toLocaleDateString()}</p>
-                    <p>To: {new Date(a.endDate).toLocaleDateString()}</p>
-                    <p>Allocation: {a.allocationPercentage}%</p>
+        <Layout>
+            <div className="min-h-screen bg-gray-50">
+                <div className="max-w-3xl mx-auto p-6">
+                    <h1 className="text-3xl font-bold mb-8 border-b-2 border-blue-300 pb-2 text-gray-800">
+                        All Assignments
+                    </h1>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : error ? (
+                        <p className="text-red-500">{error}</p>
+                    ) : (
+                        assignments?.map((a) => (
+                            <div key={a._id} className="mb-6 bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-200">
+                                <h2 className="font-semibold text-xl text-blue-700 mb-1">{a.role}</h2>
+                                <p className="text-gray-600 mb-1">Engineer: {a.engineerId}</p>
+                                <p className="text-gray-600 mb-1">Project: {a.projectId}</p>
+                                <p className="text-gray-600 mb-1">From: {new Date(a.startDate).toLocaleDateString()}</p>
+                                <p className="text-gray-600 mb-1">To: {new Date(a.endDate).toLocaleDateString()}</p>
+                                <p className="text-gray-600">Allocation: {a.allocationPercentage}%</p>
+                            </div>
+                        ))
+                    )}
                 </div>
-            ))}
-        </div>
+            </div>
+        </Layout>
     );
 };
 

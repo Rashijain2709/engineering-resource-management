@@ -15,8 +15,8 @@ async function seed() {
 
   const engineers = await User.insertMany([
     {
-      email: 'alice@example.com',
-      name: 'Alice',
+      email: 'rashi@gmail.com',
+      name: 'Rashi',
       password: bcrypt.hashSync('password', 10),
       role: 'engineer',
       skills: ['React', 'Node.js'],
@@ -25,8 +25,8 @@ async function seed() {
       department: 'Frontend'
     },
     {
-      email: 'bob@example.com',
-      name: 'Bob',
+      email: 'ashi@gmail.com',
+      name: 'Ashi',
       password: bcrypt.hashSync('password', 10),
       role: 'engineer',
       skills: ['Python', 'Node.js'],
@@ -35,8 +35,8 @@ async function seed() {
       department: 'Backend'
     },
     {
-      email: 'carol@example.com',
-      name: 'Carol',
+      email: 'riya@gmail.com',
+      name: 'Riya',
       password: bcrypt.hashSync('password', 10),
       role: 'engineer',
       skills: ['React', 'Python'],
@@ -45,8 +45,8 @@ async function seed() {
       department: 'Frontend'
     },
     {
-      email: 'manager@example.com',
-      name: 'Manager Mike',
+      email: 'anant@gmail.com',
+      name: 'Anant',
       password: bcrypt.hashSync('password', 10),
       role: 'manager'
     }
@@ -54,7 +54,7 @@ async function seed() {
 
   const projects = await Project.insertMany([
     {
-      name: 'Inventory App',
+      name: 'Weblog App',
       description: 'Build internal tool',
       startDate: new Date(),
       endDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
@@ -64,7 +64,7 @@ async function seed() {
       managerId: engineers[3]._id
     },
     {
-      name: 'ML Insights',
+      name: 'Pubmed Scraper',
       description: 'Analyze data with ML',
       startDate: new Date(),
       endDate: new Date(new Date().setMonth(new Date().getMonth() + 2)),

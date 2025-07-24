@@ -1,11 +1,5 @@
 import { create } from 'zustand';
-
-interface User {
-  id: string;
-  role: 'manager' | 'engineer';
-  name: string;
-  email: string;
-}
+import { User } from '../types';
 
 interface AuthState {
   token: string | null;
@@ -17,14 +11,21 @@ interface AuthState {
 
 export const useAuth = create<AuthState>((set) => ({
   token: localStorage.getItem('token'),
-  user: null,
+  user: (() => {
+    const stored = localStorage.getItem('user');
+    return stored ? JSON.parse(stored) : null;
+  })(),
   setToken: (token) => {
     localStorage.setItem('token', token);
     set({ token });
   },
-  setUser: (user) => set({ user }),
+  setUser: (user) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    set({ user });
+  },
   logout: () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     set({ token: null, user: null });
   },
 }));

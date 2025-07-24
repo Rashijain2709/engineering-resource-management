@@ -6,6 +6,7 @@ export interface User {
     skills?: string[];
     seniority?: 'junior' | 'mid' | 'senior';
     maxCapacity?: number;
+    currentCapacity?: number;
 }
 
 export interface Project {
