@@ -13,7 +13,37 @@ export const getProjectById = async (req: Request, res: Response) => {
 };
 
 export const createProject = async (req: Request, res: Response) => {
-  const project = new Project(req.body);
-  await project.save();
-  res.status(201).json(project);
+  try {
+    const {
+      name,
+      description,
+      requiredSkills,
+      status,
+      teamSize,
+      managerId,
+      startDate,
+      endDate,
+    } = req.body;
+
+    if (!name || !description || !requiredSkills || !status || !teamSize || !managerId) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
+
+    const project = new Project({
+      name,
+      description,
+      requiredSkills,
+      status,
+      teamSize,
+      managerId,
+      startDate,
+      endDate,
+    });
+
+    await project.save();
+    res.status(201).json(project);
+  } catch (err: any) {
+    console.error('Failed to create project:', err.message);
+    res.status(400).json({ message: 'Failed to create project', error: err.message });
+  }
 };

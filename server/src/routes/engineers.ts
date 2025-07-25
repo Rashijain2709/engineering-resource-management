@@ -31,4 +31,26 @@ router.get('/:id/capacity', async (req, res) => {
   res.json({ allocated: totalAllocated, available });
 });
 
+router.patch('/:id', async (req, res) => {
+  try {
+    const updatedEngineer = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    if (!updatedEngineer) {
+      return res.status(404).json({ message: 'Engineer not found' });
+    }
+
+    res.json(updatedEngineer);
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ message: 'Failed to update engineer profile' });
+  }
+});
+
 export default router;

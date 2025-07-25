@@ -7,14 +7,16 @@ export interface User {
     seniority?: 'junior' | 'mid' | 'senior';
     maxCapacity?: number;
     currentCapacity?: number;
+    department?: string;
 }
 
 export interface Project {
-    _id: string;
-    name: string;
-    description: string;
-    requiredSkills: string[];
-    status: string;
+  _id: string;
+  name: string;
+  description: string;
+  requiredSkills: string[];
+  status: 'planning' | 'active' | 'completed';
+  teamSize: number;
 }
 
 export interface Assignment {
