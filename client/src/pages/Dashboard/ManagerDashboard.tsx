@@ -31,7 +31,7 @@ const ManagerDashboard = () => {
                                 <SkillTags skills={eng.skills || []} />
                                 <div className="mt-4">
                                     <CapacityBar
-                                        allocated={eng.currentCapacity || 0}
+                                        allocated={eng.currentCapacity || 50}
                                         max={eng.maxCapacity || 100}
                                     />
                                 </div>
