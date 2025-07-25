@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const assignmentSchema = new mongoose.Schema({
-  engineerId: mongoose.Types.ObjectId,
-  projectId: mongoose.Types.ObjectId,
+  engineerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project" },
   allocationPercentage: Number,
   startDate: Date,
   endDate: Date,
   role: String,
 });
 
-export const Assignment = mongoose.model('Assignment', assignmentSchema);
+export const Assignment = mongoose.model("Assignment", assignmentSchema);
