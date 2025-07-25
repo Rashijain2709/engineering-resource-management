@@ -7,7 +7,12 @@ const EngineerDashboard = () => {
   const { user } = useAuth();
   const { data: assignments, loading, error } = useFetch<Assignment[]>('/assignments');
 
-  const myAssignments = assignments?.filter((a) => a.engineerId === user?._id);
+  // Filter only assignments assigned to the current engineer
+  const myAssignments = assignments?.filter(
+    (a) =>
+      typeof a.engineerId === 'object' &&
+      (a.engineerId as any)._id === user?._id
+  );
 
   return (
     <Layout>
@@ -28,9 +33,18 @@ const EngineerDashboard = () => {
                 className="mb-6 bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-200"
               >
                 <h2 className="font-semibold text-xl text-blue-700 mb-1">{a.role}</h2>
-                <p className="text-gray-600 mb-1">From: {new Date(a.startDate).toLocaleDateString()}</p>
-                <p className="text-gray-600 mb-1">To: {new Date(a.endDate).toLocaleDateString()}</p>
-                <p className="text-gray-600">Allocation: {a.allocationPercentage}%</p>
+                <p className="text-gray-700 font-medium mb-1">
+                  Project: {(a.projectId as any)?.name || 'N/A'}
+                </p>
+                <p className="text-gray-600 mb-1">
+                  From: {new Date(a.startDate).toLocaleDateString()}
+                </p>
+                <p className="text-gray-600 mb-1">
+                  To: {new Date(a.endDate).toLocaleDateString()}
+                </p>
+                <p className="text-gray-600">
+                  Allocation: {a.allocationPercentage}%
+                </p>
               </div>
             ))
           ) : (

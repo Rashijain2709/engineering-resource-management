@@ -20,11 +20,11 @@ export interface Project {
 }
 
 export interface Assignment {
-    _id: string;
-    engineerId: string;
-    projectId: string;
-    role: string;
-    allocationPercentage: number;
-    startDate: string;
-    endDate: string;
+  _id: string;
+  engineerId: string | { _id: string; name: string };
+  projectId: string | { _id: string; name: string };
+  role: string;
+  allocationPercentage: number;
+  startDate: string;
+  endDate: string;
 }

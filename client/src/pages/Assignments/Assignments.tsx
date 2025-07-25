@@ -23,9 +23,11 @@ const Assignments = () => {
     error,
     refetch,
   } = useFetch<Assignment[]>("/assignments");
+
   const [showForm, setShowForm] = useState(false);
   const [engineers, setEngineers] = useState<User[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [filter, setFilter] = useState("all");
 
   const {
     register,
@@ -59,23 +61,64 @@ const Assignments = () => {
     }
   };
 
+  const today = new Date();
+
+  const getFilteredAssignments = () => {
+    if (!assignments) return [];
+
+    return assignments.filter((a) => {
+      const start = new Date(a.startDate);
+      const end = new Date(a.endDate);
+
+      if (filter === "current") {
+        return start <= today && today <= end;
+      }
+
+      if (filter === "upcoming") {
+        return start > today;
+      }
+
+      return true; // "all"
+    });
+  };
+
+  const filteredAssignments = getFilteredAssignments();
+
   return (
     <Layout>
       <div className="min-h-screen bg-gray-50">
         <div className="max-w-3xl mx-auto p-6">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-3xl font-bold border-b-2 border-blue-300 pb-2 text-gray-800">
-              All Assignments
+              Assignments
             </h1>
 
-            {user?.role === "manager" && (
-              <button
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                onClick={() => setShowForm(true)}
-              >
-                Create Assignment
-              </button>
-            )}
+            <div className="flex items-center gap-4">
+              {/* Dropdown with icon */}
+              <div className="relative w-48">
+                <select
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                  className="appearance-none w-full border border-gray-300 text-gray-700 bg-white px-4 py-2 pr-10 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-150 ease-in-out"
+                >
+                  <option value="all">All Projects</option>
+                  <option value="current">Current Projects</option>
+                  <option value="upcoming">Upcoming Projects</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
+                  ▼
+                </div>
+              </div>
+
+              {user?.role === "manager" && (
+                <button
+                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  onClick={() => setShowForm(true)}
+                >
+                  Create Assignment
+                </button>
+              )}
+            </div>
           </div>
 
           {showForm && user?.role === "manager" && (
@@ -200,8 +243,12 @@ const Assignments = () => {
             <p>Loading...</p>
           ) : error ? (
             <p className="text-red-500">{error}</p>
+          ) : filteredAssignments.length === 0 ? (
+            <p className="text-gray-500">
+              No assignments found for this filter.
+            </p>
           ) : (
-            assignments?.map((a) => (
+            filteredAssignments.map((a) => (
               <div
                 key={a._id}
                 className="mb-6 bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-200"
