@@ -101,9 +101,9 @@ const Assignments = () => {
                   onChange={(e) => setFilter(e.target.value)}
                   className="appearance-none w-full border border-gray-300 text-gray-700 bg-white px-4 py-2 pr-10 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-150 ease-in-out"
                 >
-                  <option value="all">All Projects</option>
-                  <option value="current">Current Projects</option>
-                  <option value="upcoming">Upcoming Projects</option>
+                  <option value="all">All Assignment</option>
+                  <option value="current">Current Assignment</option>
+                  <option value="upcoming">Upcoming Assignment</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
                   ▼
